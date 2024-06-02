@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Retail Sales Forecasting</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Retail Sales Forecasting</h1>
+        <form method="POST" enctype="multipart/form-data">
+            <input type="file" name="file">
+            <button type="submit">Upload File</button>
+        </form>
+        {% if forecast_result %}
+            <h2>Forecasted Sales</h2>
+            <p>Mean Absolute Error: {{ mae }}</p>
+            <p>Mean Squared Error: {{ mse }}</p>
+            <p>Root Mean Squared Error: {{ rmse }}</p>
+            <table>
+                <tr>
+                    <th>Date</th>
+                    <th>Forecast</th>
+                </tr>
+                {% for date, forecast in forecast_result.items() %}
+                    <tr>
+                        <td>{{ date }}</td>
+                        <td>{{ forecast }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+    </div>
+</body>
+</html>
